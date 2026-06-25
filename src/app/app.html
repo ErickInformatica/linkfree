@@ -1,0 +1,37 @@
+<main class="site-shell">
+  <section class="hero" aria-labelledby="site-title">
+    <div class="hero__content">
+      <p class="eyebrow">OpenClaw template</p>
+      <h1 id="site-title">{{ siteName }}</h1>
+      <p class="tagline">{{ tagline }}</p>
+      <div class="actions" aria-label="Primary actions">
+        <a href="https://firebase.google.com/docs/hosting" target="_blank" rel="noreferrer">
+          Firebase Hosting
+        </a>
+        <a href="https://angular.dev" target="_blank" rel="noreferrer">
+          Angular
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="status" aria-label="Template status">
+    <article>
+      <span>01</span>
+      <h2>Build</h2>
+      <p>Production build is configured for Firebase Hosting.</p>
+    </article>
+    <article>
+      <span>02</span>
+      <h2>Deploy</h2>
+      <p>GitHub Actions can deploy to Firebase after secrets are added.</p>
+    </article>
+    <article>
+      <span>03</span>
+      <h2>Iterate</h2>
+      <p>Replace this starter with the actual site requested by Telegram.</p>
+    </article>
+  </section>
+</main>
+
+<router-outlet />
