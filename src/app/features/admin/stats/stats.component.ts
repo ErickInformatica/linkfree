@@ -1,11 +1,12 @@
 import { Component, inject, signal, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
+import { SlicePipe } from '@angular/common';
 import { ProfileService } from '../../../core/services/profile.service';
 import { Profile } from '../../../core/models/profile.model';
 
 @Component({
   selector: 'app-stats',
-  imports: [RouterLink],
+  imports: [RouterLink, SlicePipe],
   template: `
     <div class="stats-page">
       <header>
