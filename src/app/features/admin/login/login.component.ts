@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../core/services/auth.service';
 
@@ -142,21 +142,26 @@ import { AuthService } from '../../../core/services/auth.service';
     .hint { margin-top: 20px; color: rgba(255,255,255,0.25); font-size: 0.78rem; text-align: center; }
   `],
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   private authService = inject(AuthService);
   private router = inject(Router);
   loading = false;
   error = '';
 
+  async ngOnInit() {
+    // If already authenticated (restored session), go to admin immediately
+    const user = await this.authService.waitForAuth();
+    if (user) this.router.navigate(['/admin']);
+  }
+
   async login() {
     this.loading = true;
     this.error = '';
     try {
+      // Redirects to Google — page will reload and onAuthStateChanged will fire
       await this.authService.loginWithGoogle();
-      this.router.navigate(['/admin']);
     } catch (e: any) {
       this.error = e.message ?? 'Error al iniciar sesión';
-    } finally {
       this.loading = false;
     }
   }
