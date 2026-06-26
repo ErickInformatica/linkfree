@@ -72,34 +72,38 @@ function uid() { return Math.random().toString(36).slice(2, 10); }
 
                 @if (theme.bgType === 'color') {
                   <label>Color de fondo</label>
-                  <div class="color-row">
-                    <input type="color" [(ngModel)]="theme.bg" class="color-swatch" />
-                    <input [(ngModel)]="theme.bg" class="inp mono" />
-                  </div>
+                  <label class="color-pick-label" [for]="'bg-color'">
+                    <span class="cpick-dot" [style.background]="theme.bg"></span>
+                    <span class="cpick-hex">{{ theme.bg }}</span>
+                    <input [id]="'bg-color'" type="color" [(ngModel)]="theme.bg" class="cpick-hidden" />
+                    <span class="cpick-hint">Toca para cambiar</span>
+                  </label>
                 }
                 @if (theme.bgType === 'gradient') {
                   <div class="two-col">
                     <div>
                       <label>Color 1</label>
-                      <div class="color-row">
-                        <input type="color" [(ngModel)]="theme.bg" class="color-swatch" />
-                        <input [(ngModel)]="theme.bg" class="inp mono" />
-                      </div>
+                      <label class="color-pick-label" [for]="'bg1-color'">
+                        <span class="cpick-dot" [style.background]="theme.bg"></span>
+                        <span class="cpick-hex">{{ theme.bg }}</span>
+                        <input [id]="'bg1-color'" type="color" [(ngModel)]="theme.bg" class="cpick-hidden" />
+                      </label>
                     </div>
                     <div>
                       <label>Color 2</label>
-                      <div class="color-row">
-                        <input type="color" [(ngModel)]="theme.bg2" class="color-swatch" />
-                        <input [(ngModel)]="theme.bg2" class="inp mono" />
-                      </div>
+                      <label class="color-pick-label" [for]="'bg2-color'">
+                        <span class="cpick-dot" [style.background]="theme.bg2"></span>
+                        <span class="cpick-hex">{{ theme.bg2 }}</span>
+                        <input [id]="'bg2-color'" type="color" [(ngModel)]="theme.bg2" class="cpick-hidden" />
+                      </label>
                     </div>
                   </div>
                   <label>Dirección</label>
                   <div class="seg-ctrl">
-                    <button [class.sel]="theme.gradientDir === '135deg'" (click)="theme.gradientDir = '135deg'">↘</button>
-                    <button [class.sel]="theme.gradientDir === 'to bottom'" (click)="theme.gradientDir = 'to bottom'">↓</button>
-                    <button [class.sel]="theme.gradientDir === 'to right'" (click)="theme.gradientDir = 'to right'">→</button>
-                    <button [class.sel]="theme.gradientDir === 'to top'" (click)="theme.gradientDir = 'to top'">↑</button>
+                    <button [class.sel]="theme.gradientDir === '135deg'" (click)="theme.gradientDir = '135deg'">↘ Diagonal</button>
+                    <button [class.sel]="theme.gradientDir === 'to bottom'" (click)="theme.gradientDir = 'to bottom'">↓ Vertical</button>
+                    <button [class.sel]="theme.gradientDir === 'to right'" (click)="theme.gradientDir = 'to right'">→ Horizontal</button>
+                    <button [class.sel]="theme.gradientDir === 'to top'" (click)="theme.gradientDir = 'to top'">↑ Invertido</button>
                   </div>
                 }
                 @if (theme.bgType === 'image') {
@@ -112,25 +116,28 @@ function uid() { return Math.random().toString(36).slice(2, 10); }
                 <div class="two-col">
                   <div>
                     <label>Color texto</label>
-                    <div class="color-row">
-                      <input type="color" [(ngModel)]="theme.fontColor" class="color-swatch" />
-                      <input [(ngModel)]="theme.fontColor" class="inp mono" />
-                    </div>
+                    <label class="color-pick-label" [for]="'font-color'">
+                      <span class="cpick-dot" [style.background]="theme.fontColor"></span>
+                      <span class="cpick-hex">{{ theme.fontColor }}</span>
+                      <input [id]="'font-color'" type="color" [(ngModel)]="theme.fontColor" class="cpick-hidden" />
+                    </label>
                   </div>
                   <div>
                     <label>Color botón</label>
-                    <div class="color-row">
-                      <input type="color" [(ngModel)]="theme.btnColor" class="color-swatch" />
-                      <input [(ngModel)]="theme.btnColor" class="inp mono" />
-                    </div>
+                    <label class="color-pick-label" [for]="'btn-color'">
+                      <span class="cpick-dot" [style.background]="theme.btnColor"></span>
+                      <span class="cpick-hex">{{ theme.btnColor }}</span>
+                      <input [id]="'btn-color'" type="color" [(ngModel)]="theme.btnColor" class="cpick-hidden" />
+                    </label>
                   </div>
                 </div>
 
                 <label>Texto del botón</label>
-                <div class="color-row">
-                  <input type="color" [(ngModel)]="theme.btnTextColor" class="color-swatch" />
-                  <input [(ngModel)]="theme.btnTextColor" class="inp mono" />
-                </div>
+                <label class="color-pick-label" [for]="'btn-text-color'">
+                  <span class="cpick-dot" [style.background]="theme.btnTextColor"></span>
+                  <span class="cpick-hex">{{ theme.btnTextColor }}</span>
+                  <input [id]="'btn-text-color'" type="color" [(ngModel)]="theme.btnTextColor" class="cpick-hidden" />
+                </label>
 
                 <label>Estilo botón</label>
                 <div class="seg-ctrl">
@@ -141,13 +148,15 @@ function uid() { return Math.random().toString(36).slice(2, 10); }
                 </div>
 
                 <label>Fuente</label>
-                <select [(ngModel)]="theme.fontFamily" class="inp">
-                  <option value="Inter, sans-serif">Inter</option>
-                  <option value="'Poppins', sans-serif">Poppins</option>
-                  <option value="'Roboto', sans-serif">Roboto</option>
-                  <option value="'Montserrat', sans-serif">Montserrat</option>
-                  <option value="Georgia, serif">Georgia</option>
-                </select>
+                <div class="select-wrap">
+                  <select [(ngModel)]="theme.fontFamily">
+                    <option value="Inter, sans-serif">Inter</option>
+                    <option value="'Poppins', sans-serif">Poppins</option>
+                    <option value="'Roboto', sans-serif">Roboto</option>
+                    <option value="'Montserrat', sans-serif">Montserrat</option>
+                    <option value="Georgia, serif">Georgia</option>
+                  </select>
+                </div>
 
                 <button (click)="saveTheme()" class="btn-save" [disabled]="saving">
                   @if (saving) { Guardando... } @else { Guardar tema }
@@ -169,11 +178,13 @@ function uid() { return Math.random().toString(36).slice(2, 10); }
                     <div class="link-item" [class.inactive]="!link.active">
                       <div class="link-row-top">
                         <span class="drag">⠿</span>
-                        <select [(ngModel)]="link.icon" class="inp-sm icon-sel">
-                          @for (k of presetKeys; track k) {
-                            <option [value]="k">{{ icons[k] }} {{ k }}</option>
-                          }
-                        </select>
+                        <div class="select-wrap icon-sel-wrap">
+                          <select [(ngModel)]="link.icon" class="inp-sm">
+                            @for (k of presetKeys; track k) {
+                              <option [value]="k">{{ icons[k] }} {{ k }}</option>
+                            }
+                          </select>
+                        </div>
                         <input [(ngModel)]="link.label" class="inp-sm flex-1" placeholder="Etiqueta" />
                         <label class="toggle-sm">
                           <input type="checkbox" [(ngModel)]="link.active" />
@@ -344,13 +355,61 @@ function uid() { return Math.random().toString(36).slice(2, 10); }
     .flex-1 { flex: 1; }
     select.inp, select.inp-sm { cursor: pointer; }
 
-    .color-row { display: flex; gap: 8px; align-items: center; }
-    .color-swatch {
-      width: 38px; height: 34px; padding: 2px 3px;
-      border: 1px solid rgba(255,255,255,0.15); border-radius: 8px;
-      background: rgba(255,255,255,0.06); cursor: pointer; flex-shrink: 0;
-    }
     .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+    /* ── Custom color picker ── */
+    .color-pick-label {
+      display: flex; align-items: center; gap: 10px;
+      padding: 8px 14px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 10px; cursor: pointer;
+      transition: border-color 0.15s, background 0.15s;
+      position: relative;
+    }
+    .color-pick-label:hover { border-color: rgba(255,255,255,0.25); background: rgba(255,255,255,0.09); }
+    .color-pick-label:focus-within { border-color: #7c3aed; }
+    .cpick-dot {
+      width: 28px; height: 28px; border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.2); flex-shrink: 0;
+      transition: transform 0.15s;
+    }
+    .color-pick-label:hover .cpick-dot { transform: scale(1.08); }
+    .cpick-hex {
+      font-family: 'Courier New', monospace;
+      font-size: 0.85rem; color: rgba(255,255,255,0.75);
+      letter-spacing: 0.04em; flex: 1;
+    }
+    .cpick-hint { font-size: 0.72rem; color: rgba(255,255,255,0.25); white-space: nowrap; }
+    .cpick-hidden {
+      position: absolute; width: 0; height: 0;
+      opacity: 0; pointer-events: none;
+    }
+
+    /* ── Custom select wrapper (local) ── */
+    .select-wrap {
+      position: relative;
+      select {
+        width: 100%; appearance: none; -webkit-appearance: none;
+        padding: 9px 34px 9px 12px;
+        background: rgba(255,255,255,0.06);
+        border: 1px solid rgba(255,255,255,0.12);
+        border-radius: 10px; color: #eeeeff;
+        font-size: 0.88rem; cursor: pointer;
+        color-scheme: dark;
+        transition: border-color 0.15s;
+        option { background: #1a1a2e; color: #eeeeff; }
+        &:focus { outline: none; border-color: #7c3aed; }
+      }
+      &::after {
+        content: '⌄'; position: absolute; right: 11px; top: 50%;
+        transform: translateY(-55%);
+        color: rgba(255,255,255,0.35); pointer-events: none; font-size: 1rem;
+      }
+    }
+    .inp-sm { color-scheme: dark; }
+    .icon-sel-wrap { flex: 0 0 130px; }
+    .icon-sel-wrap select { font-size: 0.82rem; padding: 7px 28px 7px 8px; }
 
     .seg-ctrl {
       display: flex; gap: 4px; flex-wrap: wrap;
