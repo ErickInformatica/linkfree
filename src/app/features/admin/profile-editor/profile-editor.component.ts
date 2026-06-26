@@ -1,15 +1,16 @@
-import { Component, inject, signal, OnInit, computed } from '@angular/core';
+import { Component, inject, signal, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
 import { ProfileService } from '../../../core/services/profile.service';
 import { Profile, LinkItem, ProfileTheme, PRESET_ICONS } from '../../../core/models/profile.model';
+import { ColorPickerComponent } from '../../../shared/components/color-picker/color-picker.component';
 
 function uid() { return Math.random().toString(36).slice(2, 10); }
 
 @Component({
   selector: 'app-profile-editor',
-  imports: [FormsModule, RouterLink],
+  imports: [FormsModule, RouterLink, ColorPickerComponent],
   template: `
     <div class="shell">
       <!-- Top bar -->
@@ -72,30 +73,17 @@ function uid() { return Math.random().toString(36).slice(2, 10); }
 
                 @if (theme.bgType === 'color') {
                   <label>Color de fondo</label>
-                  <label class="color-pick-label" [for]="'bg-color'">
-                    <span class="cpick-dot" [style.background]="theme.bg"></span>
-                    <span class="cpick-hex">{{ theme.bg }}</span>
-                    <input [id]="'bg-color'" type="color" [(ngModel)]="theme.bg" class="cpick-hidden" />
-                    <span class="cpick-hint">Toca para cambiar</span>
-                  </label>
+                  <app-color-picker [(color)]="theme.bg"></app-color-picker>
                 }
                 @if (theme.bgType === 'gradient') {
                   <div class="two-col">
                     <div>
                       <label>Color 1</label>
-                      <label class="color-pick-label" [for]="'bg1-color'">
-                        <span class="cpick-dot" [style.background]="theme.bg"></span>
-                        <span class="cpick-hex">{{ theme.bg }}</span>
-                        <input [id]="'bg1-color'" type="color" [(ngModel)]="theme.bg" class="cpick-hidden" />
-                      </label>
+                      <app-color-picker [(color)]="theme.bg"></app-color-picker>
                     </div>
                     <div>
                       <label>Color 2</label>
-                      <label class="color-pick-label" [for]="'bg2-color'">
-                        <span class="cpick-dot" [style.background]="theme.bg2"></span>
-                        <span class="cpick-hex">{{ theme.bg2 }}</span>
-                        <input [id]="'bg2-color'" type="color" [(ngModel)]="theme.bg2" class="cpick-hidden" />
-                      </label>
+                      <app-color-picker [(color)]="theme.bg2!"></app-color-picker>
                     </div>
                   </div>
                   <label>Dirección</label>
@@ -116,28 +104,16 @@ function uid() { return Math.random().toString(36).slice(2, 10); }
                 <div class="two-col">
                   <div>
                     <label>Color texto</label>
-                    <label class="color-pick-label" [for]="'font-color'">
-                      <span class="cpick-dot" [style.background]="theme.fontColor"></span>
-                      <span class="cpick-hex">{{ theme.fontColor }}</span>
-                      <input [id]="'font-color'" type="color" [(ngModel)]="theme.fontColor" class="cpick-hidden" />
-                    </label>
+                    <app-color-picker [(color)]="theme.fontColor"></app-color-picker>
                   </div>
                   <div>
                     <label>Color botón</label>
-                    <label class="color-pick-label" [for]="'btn-color'">
-                      <span class="cpick-dot" [style.background]="theme.btnColor"></span>
-                      <span class="cpick-hex">{{ theme.btnColor }}</span>
-                      <input [id]="'btn-color'" type="color" [(ngModel)]="theme.btnColor" class="cpick-hidden" />
-                    </label>
+                    <app-color-picker [(color)]="theme.btnColor"></app-color-picker>
                   </div>
                 </div>
 
                 <label>Texto del botón</label>
-                <label class="color-pick-label" [for]="'btn-text-color'">
-                  <span class="cpick-dot" [style.background]="theme.btnTextColor"></span>
-                  <span class="cpick-hex">{{ theme.btnTextColor }}</span>
-                  <input [id]="'btn-text-color'" type="color" [(ngModel)]="theme.btnTextColor" class="cpick-hidden" />
-                </label>
+                <app-color-picker [(color)]="theme.btnTextColor"></app-color-picker>
 
                 <label>Estilo botón</label>
                 <div class="seg-ctrl">
